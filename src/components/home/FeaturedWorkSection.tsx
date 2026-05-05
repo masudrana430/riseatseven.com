@@ -187,8 +187,9 @@ export function FeaturedWorkSection() {
     const section = sectionRef.current;
     const sticky = stickyRef.current;
     const card = cardRefs.current[index];
+    const images = imagesRef.current;
 
-    if (!section || !sticky || !card) return;
+    if (!section || !sticky || !card || !images) return;
 
     const maxScroll = Math.max(1, section.offsetHeight - sticky.offsetHeight);
     const cardTop = card.offsetTop;
@@ -203,76 +204,76 @@ export function FeaturedWorkSection() {
     setActiveIndex(index);
   }
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const sticky = stickyRef.current;
-    const images = imagesRef.current;
+ useEffect(() => {
+  const section = sectionRef.current;
+  const sticky = stickyRef.current;
+  const imageColumn = imagesRef.current;
 
-    if (!section || !sticky || !images) return;
+  if (!section || !sticky || !imageColumn) return;
 
-    const mm = gsap.matchMedia();
+  const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 1024px)", () => {
-      function calculate() {
-        const distance = Math.max(
-          0,
-          images.scrollHeight - sticky.offsetHeight + 56,
+  mm.add("(min-width: 1024px)", () => {
+    let distance = 0;
+
+    const calculateDistance = () => {
+      distance = Math.max(
+        0,
+        imageColumn.scrollHeight - sticky.offsetHeight + 56,
+      );
+
+      section.style.height = `${sticky.offsetHeight + distance}px`;
+    };
+
+    calculateDistance();
+
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 0.65,
+      invalidateOnRefresh: true,
+      onRefresh: calculateDistance,
+      onUpdate: (self) => {
+        gsap.set(imageColumn, {
+          y: -distance * self.progress,
+          force3D: true,
+        });
+
+        const nextIndex = Math.min(
+          featuredProjects.length - 1,
+          Math.max(
+            0,
+            Math.round(self.progress * (featuredProjects.length - 1)),
+          ),
         );
-        section.style.height = `${sticky.offsetHeight + distance}px`;
-        return distance;
-      }
 
-      let distance = calculate();
-
-      const trigger = ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.65,
-        invalidateOnRefresh: true,
-        onRefresh: () => {
-          distance = calculate();
-        },
-        onUpdate: (self) => {
-          gsap.set(images, {
-            y: -distance * self.progress,
-            force3D: true,
-          });
-
-          const nextIndex = Math.min(
-            featuredProjects.length - 1,
-            Math.max(
-              0,
-              Math.round(self.progress * (featuredProjects.length - 1)),
-            ),
-          );
-
-          setActiveIndex(nextIndex);
-        },
-      });
-
-      scrollTriggerRef.current = trigger;
-
-      const handleResize = () => {
-        distance = calculate();
-        ScrollTrigger.refresh();
-      };
-
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("resize", handleResize);
-        trigger.kill();
-        scrollTriggerRef.current = null;
-        section.style.height = "";
-        gsap.set(images, { clearProps: "transform" });
-      };
+        setActiveIndex(nextIndex);
+      },
     });
 
-    return () => {
-      mm.revert();
+    scrollTriggerRef.current = trigger;
+
+    const handleResize = () => {
+      calculateDistance();
+      ScrollTrigger.refresh();
     };
-  }, []);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      trigger.kill();
+      scrollTriggerRef.current = null;
+      section.style.height = "";
+      gsap.set(imageColumn, { clearProps: "transform" });
+    };
+  });
+
+  return () => {
+    mm.revert();
+  };
+}, []);
 
   return (
     <section
