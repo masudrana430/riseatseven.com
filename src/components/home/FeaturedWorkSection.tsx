@@ -205,11 +205,11 @@ export function FeaturedWorkSection() {
   }
 
 useEffect(() => {
-  const section = sectionRef.current;
-  const sticky = stickyRef.current;
-  const imageColumn = imagesRef.current;
+  const sectionEl = sectionRef.current;
+  const stickyEl = stickyRef.current;
+  const imageColumnEl = imagesRef.current;
 
-  if (!section || !sticky || !imageColumn) return;
+  if (!sectionEl || !stickyEl || !imageColumnEl) return;
 
   const mm = gsap.matchMedia();
 
@@ -219,23 +219,23 @@ useEffect(() => {
     const calculateDistance = () => {
       distance = Math.max(
         0,
-        imageColumn.scrollHeight - sticky.offsetHeight + 56,
+        imageColumnEl.scrollHeight - stickyEl.offsetHeight + 56,
       );
 
-      section.style.height = `${sticky.offsetHeight + distance}px`;
+      sectionEl.style.height = `${stickyEl.offsetHeight + distance}px`;
     };
 
     calculateDistance();
 
     const trigger = ScrollTrigger.create({
-      trigger: section,
+      trigger: sectionEl,
       start: "top top",
       end: "bottom bottom",
       scrub: 0.65,
       invalidateOnRefresh: true,
       onRefresh: calculateDistance,
       onUpdate: (self) => {
-        gsap.set(imageColumn, {
+        gsap.set(imageColumnEl, {
           y: -distance * self.progress,
           force3D: true,
         });
@@ -265,8 +265,8 @@ useEffect(() => {
       window.removeEventListener("resize", handleResize);
       trigger.kill();
       scrollTriggerRef.current = null;
-      section.style.height = "";
-      gsap.set(imageColumn, { clearProps: "transform" });
+      sectionEl.style.height = "";
+      gsap.set(imageColumnEl, { clearProps: "transform" });
     };
   });
 
