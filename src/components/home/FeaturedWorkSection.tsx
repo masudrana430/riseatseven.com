@@ -204,7 +204,7 @@ export function FeaturedWorkSection() {
     setActiveIndex(index);
   }
 
- useEffect(() => {
+useEffect(() => {
   const section = sectionRef.current;
   const sticky = stickyRef.current;
   const imageColumn = imagesRef.current;
