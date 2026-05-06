@@ -107,13 +107,17 @@ function ArrowIcon() {
 function WorkCard({
   project,
   index,
+  isPreviewed,
   onActive,
   setCursor,
+  setPreviewIndex,
 }: {
   project: FeaturedProject;
   index: number;
+  isPreviewed: boolean;
   onActive: (index: number) => void;
   setCursor: (visible: boolean, label?: string) => void;
+  setPreviewIndex: (index: number | null) => void;
 }) {
   const [mask, setMask] = useState({ x: 50, y: 50 });
 
@@ -129,7 +133,7 @@ function WorkCard({
   return (
     <a
       href={project.href}
-      className="r7-fw-card"
+      className={`r7-fw-card ${isPreviewed ? "is-previewed" : ""}`}
       style={
         {
           "--mask-x": `${mask.x}%`,
@@ -140,10 +144,14 @@ function WorkCard({
       onMouseEnter={(event) => {
         updateMask(event);
         onActive(index);
+        setPreviewIndex(index);
         setCursor(true, project.category);
       }}
       onMouseMove={updateMask}
-      onMouseLeave={() => setCursor(false)}
+      onMouseLeave={() => {
+        setPreviewIndex(null);
+        setCursor(false);
+      }}
     >
       <div className="r7-fw-card-image-shell">
         <img
@@ -183,6 +191,7 @@ export function FeaturedWorkSection() {
   const cardWrapRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
   const [titleStep, setTitleStep] = useState(72);
   const [cursor, setCursorState] = useState({
     visible: false,
@@ -359,11 +368,19 @@ export function FeaturedWorkSection() {
                       type="button"
                       onMouseEnter={() => {
                         setActiveIndex(index);
+                        setPreviewIndex(index);
                         scrollToProject(index);
+                      }}
+                      onMouseLeave={() => {
+                        setPreviewIndex(null);
                       }}
                       onFocus={() => {
                         setActiveIndex(index);
+                        setPreviewIndex(index);
                         scrollToProject(index);
+                      }}
+                      onBlur={() => {
+                        setPreviewIndex(null);
                       }}
                       className={`r7-fw-title-item ${
                         activeIndex === index ? "is-active" : "is-muted"
@@ -393,8 +410,10 @@ export function FeaturedWorkSection() {
                 <WorkCard
                   project={project}
                   index={index}
+                  isPreviewed={previewIndex === index}
                   onActive={setActiveIndex}
                   setCursor={setCursor}
+                  setPreviewIndex={setPreviewIndex}
                 />
               </div>
             ))}

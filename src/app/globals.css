@@ -22,6 +22,24 @@ html {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
@@ -1922,7 +1940,8 @@ body.menu-locked .r7-report-banner {
     filter 0.9s var(--ease-r7);
 }
 
-.r7-fw-card:hover .r7-fw-card-image-shell {
+.r7-fw-card:hover .r7-fw-card-image-shell,
+.r7-fw-card.is-previewed .r7-fw-card-image-shell {
   transform: scale(1.065);
   filter: saturate(1.06) contrast(1.02);
 }
@@ -1953,7 +1972,8 @@ body.menu-locked .r7-report-banner {
   will-change: clip-path;
 }
 
-.r7-fw-card:hover .r7-fw-card-mask-layer {
+.r7-fw-card:hover .r7-fw-card-mask-layer,
+.r7-fw-card.is-previewed .r7-fw-card-mask-layer {
   clip-path: circle(145% at var(--mask-x) var(--mask-y));
 }
 
@@ -1995,7 +2015,8 @@ body.menu-locked .r7-report-banner {
     border-radius 0.6s var(--ease-r7);
 }
 
-.r7-fw-card:hover .r7-fw-card-mask-icon {
+.r7-fw-card:hover .r7-fw-card-mask-icon,
+.r7-fw-card.is-previewed .r7-fw-card-mask-icon {
   transform: rotate(45deg) scale(1.04);
   border-radius: 26px;
 }
@@ -2012,7 +2033,8 @@ body.menu-locked .r7-report-banner {
     transform 0.35s var(--ease-r7);
 }
 
-.r7-fw-card:hover .r7-fw-card-label-wrap {
+.r7-fw-card:hover .r7-fw-card-label-wrap,
+.r7-fw-card.is-previewed .r7-fw-card-label-wrap {
   opacity: 0;
   transform: translateY(8px);
 }
