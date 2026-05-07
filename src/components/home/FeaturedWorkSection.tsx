@@ -104,6 +104,24 @@ function ArrowIcon() {
   );
 }
 
+function ExploreWorkButton() {
+  return (
+    <a href="/work/" className="r7-fw-explore-button">
+      <span className="r7-fw-explore-window">
+        <span className="r7-fw-explore-line r7-fw-explore-current">
+          <span>Explore Our Work</span>
+          <ArrowIcon />
+        </span>
+
+        <span className="r7-fw-explore-line r7-fw-explore-next">
+          <span>Explore Our Work</span>
+          <ArrowIcon />
+        </span>
+      </span>
+    </a>
+  );
+}
+
 function WorkCard({
   project,
   index,
@@ -329,6 +347,7 @@ export function FeaturedWorkSection() {
   }, []);
 
   return (
+  <>
     <section
       ref={sectionRef}
       className="r7-fw-section"
@@ -421,5 +440,10 @@ export function FeaturedWorkSection() {
         </div>
       </div>
     </section>
-  );
+
+    <div className="r7-fw-explore-wrap">
+      <ExploreWorkButton />
+    </div>
+  </>
+);
 }

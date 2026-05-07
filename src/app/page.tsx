@@ -4,6 +4,8 @@ import { LogoMarquee } from "@/components/home/LogoMarquee";
 import { DemandDiscoverySection } from "@/components/home/DemandDiscoverySection";
 import { HomeHero } from "@/components/home/Hero";
 import { FeaturedWorkSection } from "@/components/home/FeaturedWorkSection";
+import { ServicesSection } from "@/components/home/ServicesSection";
+import { LegacyMarqueeSection } from "@/components/home/LegacyMarqueeSection";
 
 export default function Home() {
   return (
@@ -12,6 +14,8 @@ export default function Home() {
       <LogoMarquee />
       <DemandDiscoverySection />
       <FeaturedWorkSection />
+      <ServicesSection />
+      <LegacyMarqueeSection />
     </main>
   );
 }
