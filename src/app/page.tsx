@@ -6,6 +6,7 @@ import { HomeHero } from "@/components/home/Hero";
 import { FeaturedWorkSection } from "@/components/home/FeaturedWorkSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
 import { LegacyMarqueeSection } from "@/components/home/LegacyMarqueeSection";
+import { LegacyCardsSection } from "@/components/home/LegacyCardsSection";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <FeaturedWorkSection />
       <ServicesSection />
       <LegacyMarqueeSection />
+      <LegacyCardsSection />
     </main>
   );
 }
