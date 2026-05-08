@@ -2966,3 +2966,265 @@ body.menu-locked .r7-report-banner {
 }
 
 
+/* =========================
+   Legacy Stacked Cards
+========================= */
+
+.r7deck-section {
+  position: relative;
+  width: 100%;
+  height: 400svh;
+  min-height: 2600px;
+  background: #f5f3f0;
+  color: #111212;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.r7deck-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  min-height: 658px;
+  overflow: hidden;
+}
+
+.r7deck-label {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  z-index: 2;
+  color: #111212;
+  font-family: var(--font-r7);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 27.5px;
+  letter-spacing: -0.77px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.r7deck-stage {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+  contain: paint;
+}
+
+.r7deck-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity, visibility;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.r7deck-card {
+  position: relative;
+  display: grid;
+  width: min(576px, 78vw);
+  aspect-ratio: 1 / 1;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 40px 56px;
+  text-align: center;
+  box-shadow: none;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.r7deck-card-black {
+  background: #000000;
+  color: #ffffff;
+}
+
+.r7deck-card-mint {
+  background: #b2f6e3;
+  color: #111212;
+}
+
+.r7deck-card-white {
+  background: #ffffff;
+  color: #111212;
+}
+
+.r7deck-content {
+  display: flex;
+  width: 100%;
+  max-width: 464px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.r7deck-card-black .r7deck-content {
+  gap: 18px;
+}
+
+.r7deck-image-wrap {
+  position: relative;
+  width: 192px;
+  height: 192px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(17, 18, 18, 0.08);
+}
+
+.r7deck-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+.r7deck-copy {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.r7deck-title {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  color: currentColor;
+  font-family: var(--font-r7);
+  font-size: 75px;
+  font-weight: 500;
+  line-height: 67.5px;
+  letter-spacing: -2.625px;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.r7deck-text {
+  width: 100%;
+  color: currentColor;
+}
+
+.r7deck-text p {
+  margin: 0 0 20px;
+  color: currentColor;
+  font-family: var(--font-r7);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: normal;
+  text-align: center;
+  text-wrap: pretty;
+}
+
+.r7deck-text p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1279px) {
+  .r7deck-section {
+    height: 360svh;
+    min-height: 2300px;
+  }
+
+  .r7deck-card {
+    width: min(560px, 78vw);
+    padding: 36px 44px;
+  }
+
+  .r7deck-title {
+    font-size: clamp(56px, 7vw, 75px);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+  }
+
+  .r7deck-image-wrap {
+    width: 168px;
+    height: 168px;
+  }
+}
+
+@media (max-width: 767px) {
+  .r7deck-section {
+    height: auto;
+    min-height: 0;
+    padding: 72px 16px;
+    overflow: visible;
+  }
+
+  .r7deck-sticky {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .r7deck-label {
+    position: relative;
+    top: auto;
+    left: auto;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    text-align: center;
+    transform: none;
+  }
+
+  .r7deck-stage {
+    display: grid;
+    gap: 28px;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    contain: none;
+  }
+
+  .r7deck-wrap {
+    position: relative;
+    inset: auto;
+    height: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .r7deck-card {
+    width: 100%;
+    padding: 28px;
+    border-radius: 20px;
+  }
+
+  .r7deck-image-wrap {
+    width: 124px;
+    height: 124px;
+    border-radius: 14px;
+  }
+
+  .r7deck-title {
+    font-size: 48px;
+    line-height: 43px;
+    letter-spacing: -1.68px;
+  }
+
+  .r7deck-text p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
